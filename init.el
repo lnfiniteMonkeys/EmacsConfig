@@ -37,16 +37,34 @@
   (setq use-package-always-ensure t))
 
 
-
-
 (use-package haskell-mode)
 (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
 (use-package paredit)
+(use-package ido
+  :config (;;(setq ido-enable-flex-matching t) <-- "invalid function"
+	 (setq ido-everywhere t)
+	 (ido-mode 1)))
 (use-package magit)
 (use-package monokai-theme)
 (use-package ghc)
 (use-package org)
 (use-package smex)
+(use-package company)
+(use-package try)
+(use-package which-key
+  :config (which-key-mode))
+(use-package ace-window
+  :ensure t
+  :init
+  (progn
+    (global-set-key [remap other-window] 'ace-window)
+    (custom-set-faces
+     '(aw-leading-char-face
+       ((t (:inherit ace-jump-face-foreground :height 3.0))))) 
+    ))
+
+;;avy mode, swipper
+
 
 
 ;; QWERTY -> DVORAK while keeping all keybindngs the same
