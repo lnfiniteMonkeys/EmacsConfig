@@ -1,9 +1,21 @@
-;; Window settings
+
+;; navigating with right hand
+(global-set-key (kbd "C-q") nil)
+;;(global-set-key (kbd "C-q C-i") 'previous-line)
+;;(global-set-key (kbd "C-q C-l") 'right-char)
+;;(global-set-key (kbd "C-q C-k") 'next-line)
+;;(global-set-key (kbd "C-q C-j") 'left-char)
+
+
+
+;;;;;; WINDOW
 (when window-system
   (menu-bar-mode -1)
   (tool-bar-mode -1)
   (scroll-bar-mode -1)
   (tooltip-mode -1))
+
+(fset 'yes-or-no-p 'y-or-n-p)
 
 (setq frame-title-format "TimeLines")
 ;; Cursor settings
@@ -11,11 +23,12 @@
 (set-default 'cursor-type 'box)
 (set-cursor-color "#ff1493") 
 
-
 (setq inhibit-startup-message t)
 (setq initial-scratch-message "")
 
-;; Package archive setup
+
+
+;;;;;; PACKAGES
 (require 'package)
 (setq package-archives '(("melpa" . "https://stable.melpa.org/packages/")  ;;("melpa" . "http://melpa.org/packages/")
                          ("gnu" . "http://elpa.gnu.org/packages/")
@@ -23,8 +36,6 @@
                          ("marmalade" . "https://marmalade-repo.org/packages/")))
 
 (package-initialize)
-
-
 
 ;; Install use-package if it's not already installed.
 (unless (package-installed-p 'use-package)
@@ -36,14 +47,13 @@
   (require 'use-package)
   (setq use-package-always-ensure t))
 
-
 (use-package haskell-mode)
 (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
 (use-package paredit)
-(use-package ido
-  :config (;;(setq ido-enable-flex-matching t) <-- "invalid function"
-	 (setq ido-everywhere t)
-	 (ido-mode 1)))
+;;getting some errors for setq ido-everywhere (use-package ido
+  ;;:config (;;(setq ido-enable-flex-matching t) <-- "invalid function"
+;;	 (setq ido-everywhere t)
+;;	 (ido-mode 1)))
 (use-package magit)
 (use-package monokai-theme)
 (use-package ghc)
@@ -53,21 +63,34 @@
 (use-package try)
 (use-package which-key
   :config (which-key-mode))
-(use-package ace-window
-  :ensure t
-  :init
-  (progn
-    (global-set-key [remap other-window] 'ace-window)
-    (custom-set-faces
-     '(aw-leading-char-face
-       ((t (:inherit ace-jump-face-foreground :height 3.0))))) 
-    ))
+(use-package ace-window)
+(use-package hydra)
+;;(hydra-create "C-q"
+;;	      '(("i" 'previous-line)
+;;		("l" 'right-char)
+;;		("k" 'next-line)
+;;		("j" 'left-char)))
 
+;; When C-q-(any of the following) is pressed, the letter navigation mode is enabled until another command is executed
+;; (C-q doesn't have to remain pressed after the first toggle)
+(defhydra hydra-move (global-map "C-q")
+  "move"
+  ("c" previous-line)
+  ("t" next-line)
+  ("h" left-char)
+  ("n" right-char))
+
+;; Same thing but with smartrep instead, in this case C-q has to remain pressedc;(use-package smartrep)
+;;(smartrep-define-key
+  ;;  global-map "C-q" '(("i" . 'previous-line)
+    ;;                   ("l" . 'right-char)
+      ;;                 ("k" . 'next-line)
+        ;;               ("j" . ')))
 ;;avy mode, swipper
 
 
 
-;; QWERTY -> DVORAK while keeping all keybindngs the same
+;;;;;; QWERTY -> DVORAK while keeping all keybindngs the same
 ;; First row
 (define-key key-translation-map (kbd "q") (kbd "'"))
 (define-key key-translation-map (kbd "w") (kbd ","))
@@ -88,7 +111,7 @@
 (define-key key-translation-map (kbd "R") (kbd "P"))
 (define-key key-translation-map (kbd "T") (kbd "Y"))
 (define-key key-translation-map (kbd "Y") (kbd "F"))
-(define-key key-translation-map (kbd "U") (kbd "U"))
+(define-key key-translation-map (kbd "U") (kbd "G"))
 (define-key key-translation-map (kbd "I") (kbd "C"))
 (define-key key-translation-map (kbd "O") (kbd "R"))
 (define-key key-translation-map (kbd "P") (kbd "N"))
@@ -150,3 +173,6 @@
 
 (define-key key-translation-map (kbd "_") (kbd "{"))
 (define-key key-translation-map (kbd "+") (kbd "}"))
+
+
+
