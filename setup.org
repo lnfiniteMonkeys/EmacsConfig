@@ -61,9 +61,9 @@
    (use-package magit)
    (use-package ghc)
 
-  ;; (use-package intero
-  ;;   :config
-  ;;   (intero-global-mode 1))
+   (use-package intero
+     :config
+     (intero-global-mode 1))
 #+END_SRC
 *** Navigation
 **** Ido
@@ -82,12 +82,14 @@
 #+END_SRC
 **** Hydra
 #+BEGIN_SRC emacs-lisp
+  (global-unset-key (kbd "C-q"))
+
   (use-package hydra)
   ;;(hydra-create "C-q"
-  ;;	      '(("i" 'previous-line)
-  ;;		("l" 'right-char)
-  ;;		("k" 'next-line)
-  ;;		("j" 'left-char)))
+  ;;          '(("i" 'previous-line)
+  ;;            ("l" 'right-char)
+  ;;            ("k" 'next-line)
+  ;;            ("j" 'left-char)))
   ;; When C-q-(any of the following) is pressed, the letter navigation mode is enabled until another command is executed
   ;; (C-q doesn't have to remain pressed after the first toggle)
   (defhydra hydra-move (global-map "C-q")
@@ -140,94 +142,130 @@
     :config (which-key-mode))
 #+END_SRC
 
+**** Avy-Jump
+#+BEGIN_SRC emacs-lisp
+  (use-package avy)
+
+  (ivy-mode 1)
+  (setq ivy-use-virtual-buffers t)
+  (setq enable-recursive-minibuffers t)
+  (global-set-key "\C-s" 'swiper)
+    
+#+END_SRC
 
 * Config
+** Letter navigation
+#+BEGIN_SRC emacs-lisp
+  (global-unset-key (kbd "C-i"))
+  (global-unset-key (kbd "C-j"))
+  (global-unset-key (kbd "C-k"))
+  (global-unset-key (kbd "C-l"))
+
+
+  (global-unset-key (kbd "C-e"))
+  (global-unset-key (kbd "C-a"))
+  (global-set-key (kbd "C-u") 'beginning-of-line)
+  (global-set-key (kbd "C-o") 'end-of-line)
+
+  (global-set-key (kbd "C-i") 'previous-line)
+  (global-set-key (kbd "C-j") 'left-char)
+  (global-set-key (kbd "C-k") 'next-line)
+  (global-set-key (kbd "C-l") 'right-char)
+
+  (global-set-key (kbd "C-M-w") 'kill-region)
+
+  (global-unset-key (kbd "C-y"))
+  (global-unset-key (kbd "M-e"))
+  (global-set-key (kbd "M-e") 'yank)
+
+
+#+END_SRC
 ** QWERTY -> Dvorak
 #+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "C-q") nil)
-
-  ;;;;;; QWERTY -> DVORAK while keeping all keybindngs the same
-  ;; First row
-  (define-key key-translation-map (kbd "q") (kbd "'"))
-  (define-key key-translation-map (kbd "w") (kbd ","))
-  (define-key key-translation-map (kbd "e") (kbd "."))
-  (define-key key-translation-map (kbd "r") (kbd "p"))
-  (define-key key-translation-map (kbd "t") (kbd "y"))
-  (define-key key-translation-map (kbd "y") (kbd "f"))
-  (define-key key-translation-map (kbd "u") (kbd "g"))
-  (define-key key-translation-map (kbd "i") (kbd "c"))
-  (define-key key-translation-map (kbd "o") (kbd "r"))
-  (define-key key-translation-map (kbd "p") (kbd "l"))
-  (define-key key-translation-map (kbd "[") (kbd "/"))
-  (define-key key-translation-map (kbd "]") (kbd "="))
-
-  (define-key key-translation-map (kbd "Q") (kbd "\""))
-  (define-key key-translation-map (kbd "W") (kbd "<"))
-  (define-key key-translation-map (kbd "E") (kbd ">"))
-  (define-key key-translation-map (kbd "R") (kbd "P"))
-  (define-key key-translation-map (kbd "T") (kbd "Y"))
-  (define-key key-translation-map (kbd "Y") (kbd "F"))
-  (define-key key-translation-map (kbd "U") (kbd "G"))
-  (define-key key-translation-map (kbd "I") (kbd "C"))
-  (define-key key-translation-map (kbd "O") (kbd "R"))
-  (define-key key-translation-map (kbd "P") (kbd "L"))
-  (define-key key-translation-map (kbd "{") (kbd "?"))
-  (define-key key-translation-map (kbd "}") (kbd "+"))
-
-  ;; Second row
-  (define-key key-translation-map (kbd "a") (kbd "a"))
-  (define-key key-translation-map (kbd "s") (kbd "o"))
-  (define-key key-translation-map (kbd "d") (kbd "e"))
-  (define-key key-translation-map (kbd "f") (kbd "u"))
-  (define-key key-translation-map (kbd "g") (kbd "i"))
-  (define-key key-translation-map (kbd "h") (kbd "d"))
-  (define-key key-translation-map (kbd "j") (kbd "h"))
-  (define-key key-translation-map (kbd "k") (kbd "t"))
-  (define-key key-translation-map (kbd "l") (kbd "n"))
-  (define-key key-translation-map (kbd ";") (kbd "s"))
-  (define-key key-translation-map (kbd "'") (kbd "-"))
-
-  (define-key key-translation-map (kbd "A") (kbd "A"))
-  (define-key key-translation-map (kbd "S") (kbd "O"))
-  (define-key key-translation-map (kbd "D") (kbd "E"))
-  (define-key key-translation-map (kbd "F") (kbd "U"))
-  (define-key key-translation-map (kbd "G") (kbd "I"))
-  (define-key key-translation-map (kbd "H") (kbd "D"))
-  (define-key key-translation-map (kbd "J") (kbd "H"))
-  (define-key key-translation-map (kbd "K") (kbd "T"))
-  (define-key key-translation-map (kbd "L") (kbd "N"))
-  (define-key key-translation-map (kbd ":") (kbd "S"))
-  (define-key key-translation-map (kbd "\"") (kbd "_"))
-
-  ;; Third row
-  (define-key key-translation-map (kbd "z") (kbd ";"))
-  (define-key key-translation-map (kbd "x") (kbd "q"))
-  (define-key key-translation-map (kbd "c") (kbd "j"))
-  (define-key key-translation-map (kbd "v") (kbd "k"))
-  (define-key key-translation-map (kbd "b") (kbd "x"))
-  (define-key key-translation-map (kbd "n") (kbd "b"))
-  (define-key key-translation-map (kbd "m") (kbd "m"))
-  (define-key key-translation-map (kbd ",") (kbd "w"))
-  (define-key key-translation-map (kbd ".") (kbd "v"))
-  (define-key key-translation-map (kbd "/") (kbd "z"))
-
-  (define-key key-translation-map (kbd "Z") (kbd ":"))
-  (define-key key-translation-map (kbd "X") (kbd "Q"))
-  (define-key key-translation-map (kbd "C") (kbd "J"))
-  (define-key key-translation-map (kbd "V") (kbd "K"))
-  (define-key key-translation-map (kbd "B") (kbd "X"))
-  (define-key key-translation-map (kbd "N") (kbd "B"))
-  (define-key key-translation-map (kbd "M") (kbd "M"))
-  (define-key key-translation-map (kbd "<") (kbd "W"))
-  (define-key key-translation-map (kbd ">") (kbd "V"))
-  (define-key key-translation-map (kbd "?") (kbd "Z"))
 
 
-  ;; Misc
-  (define-key key-translation-map (kbd "-") (kbd "["))
-  (define-key key-translation-map (kbd "=") (kbd "]"))
+   ;;;;;; QWERTY -> DVORAK while keeping all keybindngs the same
+   ;; First row
+   (define-key key-translation-map (kbd "q") (kbd "'"))
+   (define-key key-translation-map (kbd "w") (kbd ","))
+   (define-key key-translation-map (kbd "e") (kbd "."))
+   (define-key key-translation-map (kbd "r") (kbd "p"))
+   (define-key key-translation-map (kbd "t") (kbd "y"))
+   (define-key key-translation-map (kbd "y") (kbd "f"))
+   (define-key key-translation-map (kbd "u") (kbd "g"))
+   (define-key key-translation-map (kbd "i") (kbd "c"))
+   (define-key key-translation-map (kbd "o") (kbd "r"))
+   (define-key key-translation-map (kbd "p") (kbd "l"))
+   (define-key key-translation-map (kbd "[") (kbd "/"))
+   (define-key key-translation-map (kbd "]") (kbd "="))
 
-  (define-key key-translation-map (kbd "_") (kbd "{"))
-  (define-key key-translation-map (kbd "+") (kbd "}"))
+   (define-key key-translation-map (kbd "Q") (kbd "\""))
+   (define-key key-translation-map (kbd "W") (kbd "<"))
+   (define-key key-translation-map (kbd "E") (kbd ">"))
+   (define-key key-translation-map (kbd "R") (kbd "P"))
+   (define-key key-translation-map (kbd "T") (kbd "Y"))
+   (define-key key-translation-map (kbd "Y") (kbd "F"))
+   (define-key key-translation-map (kbd "U") (kbd "G"))
+   (define-key key-translation-map (kbd "I") (kbd "C"))
+   (define-key key-translation-map (kbd "O") (kbd "R"))
+   (define-key key-translation-map (kbd "P") (kbd "L"))
+   (define-key key-translation-map (kbd "{") (kbd "?"))
+   (define-key key-translation-map (kbd "}") (kbd "+"))
+
+   ;; Second row
+   (define-key key-translation-map (kbd "a") (kbd "a"))
+   (define-key key-translation-map (kbd "s") (kbd "o"))
+   (define-key key-translation-map (kbd "d") (kbd "e"))
+   (define-key key-translation-map (kbd "f") (kbd "u"))
+   (define-key key-translation-map (kbd "g") (kbd "i"))
+   (define-key key-translation-map (kbd "h") (kbd "d"))
+   (define-key key-translation-map (kbd "j") (kbd "h"))
+   (define-key key-translation-map (kbd "k") (kbd "t"))
+   (define-key key-translation-map (kbd "l") (kbd "n"))
+   (define-key key-translation-map (kbd ";") (kbd "s"))
+   (define-key key-translation-map (kbd "'") (kbd "-"))
+
+   (define-key key-translation-map (kbd "A") (kbd "A"))
+   (define-key key-translation-map (kbd "S") (kbd "O"))
+   (define-key key-translation-map (kbd "D") (kbd "E"))
+   (define-key key-translation-map (kbd "F") (kbd "U"))
+   (define-key key-translation-map (kbd "G") (kbd "I"))
+   (define-key key-translation-map (kbd "H") (kbd "D"))
+   (define-key key-translation-map (kbd "J") (kbd "H"))
+   (define-key key-translation-map (kbd "K") (kbd "T"))
+   (define-key key-translation-map (kbd "L") (kbd "N"))
+   (define-key key-translation-map (kbd ":") (kbd "S"))
+   (define-key key-translation-map (kbd "\"") (kbd "_"))
+
+   ;; Third row
+   (define-key key-translation-map (kbd "z") (kbd ";"))
+   (define-key key-translation-map (kbd "x") (kbd "q"))
+   (define-key key-translation-map (kbd "c") (kbd "j"))
+   (define-key key-translation-map (kbd "v") (kbd "k"))
+   (define-key key-translation-map (kbd "b") (kbd "x"))
+   (define-key key-translation-map (kbd "n") (kbd "b"))
+   (define-key key-translation-map (kbd "m") (kbd "m"))
+   (define-key key-translation-map (kbd ",") (kbd "w"))
+   (define-key key-translation-map (kbd ".") (kbd "v"))
+   (define-key key-translation-map (kbd "/") (kbd "z"))
+
+   (define-key key-translation-map (kbd "Z") (kbd ":"))
+   (define-key key-translation-map (kbd "X") (kbd "Q"))
+   (define-key key-translation-map (kbd "C") (kbd "J"))
+   (define-key key-translation-map (kbd "V") (kbd "K"))
+   (define-key key-translation-map (kbd "B") (kbd "X"))
+   (define-key key-translation-map (kbd "N") (kbd "B"))
+   (define-key key-translation-map (kbd "M") (kbd "M"))
+   (define-key key-translation-map (kbd "<") (kbd "W"))
+   (define-key key-translation-map (kbd ">") (kbd "V"))
+   (define-key key-translation-map (kbd "?") (kbd "Z"))
+
+
+   ;; Misc
+   (define-key key-translation-map (kbd "-") (kbd "["))
+   (define-key key-translation-map (kbd "=") (kbd "]"))
+
+   (define-key key-translation-map (kbd "_") (kbd "{"))
+   (define-key key-translation-map (kbd "+") (kbd "}"))
 
 #+END_SRC
