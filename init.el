@@ -15,11 +15,15 @@
 (eval-when-compile
   (require 'use-package)
   (setq use-package-always-ensure t))
-	
-(local-set-key [tab] 'tab-to-tab-stop)
-;;unindent?
 
+(global-set-key [tab] 'indent-for-tab-command)
+;;unindent?
+	
 (global-set-key (kbd "C-w") 'kill-whole-line)
 
 (org-babel-load-file (expand-file-name "~/.emacs.d/setup.org"))
 
+
+
+(use-package elpy)
+(elpy-enable)
