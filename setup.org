@@ -63,7 +63,8 @@
   (use-package ghc)
 
   (use-package intero
-    :config (intero-global-mode 1))
+    :config (intero-global-mode 1)
+    :bind ("<C-return>" . 'intero-repl-eval-region))
 
 #+END_SRC
 *** Navigation
