@@ -11,6 +11,9 @@
   (line-number-mode 1)
   (show-paren-mode 1)
 
+  (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
+
+
   (global-set-key (kbd "C-c p")
                   (lambda() (interactive)
                     (org-babel-load-file "~/.emacs.d/init.org")))
@@ -62,10 +65,9 @@
   (use-package magit)
   (use-package ghc)
 
-  (use-package intero
-    :config (intero-global-mode 1)
-    :bind ("<C-return>" . 'intero-repl-eval-region))
-
+  ;;(use-package intero
+  ;;  :config (intero-global-mode nil)
+  ;;  :bind ("<C-return>" . 'intero-repl-eval-region))
 #+END_SRC
 *** Navigation
 **** Smartparens

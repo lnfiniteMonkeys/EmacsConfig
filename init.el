@@ -23,7 +23,7 @@
 
 (org-babel-load-file (expand-file-name "~/.emacs.d/setup.org"))
 
-
+(require 'timelines "~/.emacs.d/timelines.el")
 
 (use-package elpy)
 (elpy-enable)

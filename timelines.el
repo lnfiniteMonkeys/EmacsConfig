@@ -7,12 +7,11 @@
 
 (defvar timelines-buffer
   "*timelines*"
-  "*The name of the TimeLines process buffer (default=*timelines*).")
+  "*The name of the TimeLines process buffer (default = *timelines*).")
 
 (defvar timelines-interpreter
   "ghci"
-  "*The haskell interpeter to use (default=ghci).")
-
+  "*The haskell interpeter to use (default = ghci).")
 
 (defun timelines-start ()
   "Start TimeLines."
@@ -20,34 +19,24 @@
   (if (comint-check-proc timelines-buffer)
       (error "A TimeLines process is already running")
     (apply 'make-comint "timelines" timelines-interpreter nil)
-    (tidal-see-output))
-  (timelines-send-string "1 + 1"))
-  
+    (delete-other-windows)
+    (timelines-show-output))
+  (timelines-send-string ":l Context.hs")
+  (timelines-send-string ":set prompt \"TimeLines> \"")
+  )  
 
-(defun timelines-show-output
+(defun timelines-show-output ()
   "Show haskell output."
   (interactive)
   (when (comint-check-proc timelines-buffer)
     (delete-other-windows)
-    (split-window-vertically 10)
+    ;;(split-window-vertically -10)
     (with-current-buffer timelines-buffer
       (let ((window (display-buffer (current-buffer))))
 	(goto-char (point-max))
 	(save-selected-window
 	  (set-window-point window (point-max)))))))
 
-
-(defun tidal-see-output ()
-  "Show haskell output."
-  (interactive)
-  (when (comint-check-proc timelines-buffer)
-    (delete-other-windows)
-    (split-window-vertically)
-    (with-current-buffer timelines-buffer
-      (let ((window (display-buffer (current-buffer))))
-	(goto-char (point-max))
-	(save-selected-window
-(set-window-point window (point-max)))))))
 
 (defun timelines-chunk-string (n s)
   "Split a string S into chunks of N characters."
@@ -85,6 +74,10 @@
     (timelines-send-string s)
     (timelines-send-string ":}")
     (mark-paragraph)
+    (next-line)
+    (beginning-of-line)
+    (exchange-point-and-mark)
+    (left-char)
     (pulse-momentary-highlight-region (mark) (point)))
   )
 
@@ -152,3 +145,4 @@
 (add-to-list 'auto-mode-alist '("\\.tl" . timelines-mode))
 
 (provide 'timelines)
+;;
