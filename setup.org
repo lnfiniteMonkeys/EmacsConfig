@@ -76,12 +76,21 @@
 **** Yasnippets
 #+BEGIN_SRC emacs-lisp
   (use-package yasnippet
-    :config (yas-global-mode 1))
+    :init (yas-global-mode 1))
+
+  (define-key yas-minor-mode-map (kbd "<tab>") nil)
+  (define-key yas-minor-mode-map (kbd "TAB") nil)
+
+  (define-key yas-minor-mode-map (kbd "SPC") yas-maybe-expand)
 #+END_SRC
 **** PDF
 #+BEGIN_SRC emacs-lisp
   (use-package pdf-tools)
   (use-package org-pdfview)
+
+
+  (use-package scroll-restore
+    :config (scroll-restore-mode 1))
 #+END_SRC
 *** Navigation
 **** Smartparens

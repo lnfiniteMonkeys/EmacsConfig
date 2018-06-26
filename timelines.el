@@ -21,9 +21,9 @@
     (apply 'make-comint "timelines" timelines-interpreter nil)
     (delete-other-windows)
     (timelines-show-output))
-  (timelines-send-string ":l Context.hs")
+  (timelines-send-string ":m Sound.TimeLines.Context")
   (timelines-send-string ":set prompt \"TimeLines> \"")
-  )  
+  ) 
 
 (defun timelines-show-output ()
   "Show haskell output."
@@ -36,6 +36,10 @@
 	(goto-char (point-max))
 	(save-selected-window
 	  (set-window-point window (point-max)))))))
+
+
+
+(set-window-start (get-buffer-window) 100)
 
 
 (defun timelines-chunk-string (n s)
@@ -111,12 +115,28 @@
 
 ;;(global-set-key (kbd "C-t") nil)
 
+(defun timelines-reset-server ()
+  (interactive)
+  (timelines-send-string "reset"))
+
+
+(defun timelines-set-window ()
+  (interactive)
+  (let ((s (read-from-minibuffer "Start: "))
+	(e (read-from-minibuffer "End: ")))
+  (print (list s e))
+  ;;(timeLines-send-string "window 0 1"))
+))
+
+
 (defun timelines-mode-keybindings (map)
   "Haskell Timelines keybindings."
   (define-key map (kbd "C-c C-s") 'timelines-start)
   (define-key map (kbd "C-t C-t") 'timelines-show-output)
   (define-key map (kbd "C-t C-q") 'timelines-quit-haskell)
   (define-key map (kbd "<C-return>") 'timelines-eval-region)
+  (define-key map (kbd "C-c C-r") 'timelines-reset-server)
+  (define-key map (kbd "C-c C-w") 'timelines-set-window)
 )
 
 (defun timelines-turn-on-keybindings ()
