@@ -68,7 +68,7 @@
   (use-package magit)
   (use-package ghc)
 
-  ;;(use-package intero
+  ;;(use-package intero)
   ;;  :config (intero-global-mode nil)
   ;;  :bind ("<C-return>" . 'intero-repl-eval-region))
 #+END_SRC

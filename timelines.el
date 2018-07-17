@@ -13,6 +13,16 @@
   "ghci"
   "*The haskell interpeter to use (default = ghci).")
 
+(defvar timelines-path-to-instruments
+  "~/timelines/Sound/TimeLines/Intsruments.hs"
+  "*The path to the Intstruments source file (default = '~/timelines/Sound/TimeLines/Intsruments.hs')")
+
+(defvar timelines-path-to-src
+  "~/timelines/Sound/TimeLines/"
+  "*The path to the source files to be loaded on startup (default = '~/timelines/Sound/TimeLines/')")
+
+
+
 (defun timelines-start ()
   "Start TimeLines."
   (interactive)
@@ -21,9 +31,16 @@
     (apply 'make-comint "timelines" timelines-interpreter nil)
     (delete-other-windows)
     (timelines-show-output))
-  (timelines-send-string ":m Sound.TimeLines.Context")
+  ;;(timelines-send-string ":m Sound.TimeLines.Context")
   (timelines-send-string ":set prompt \"TimeLines> \"")
+  (timelines-load-src)
+  (timelines-reset)
   ) 
+
+(defun timelines-reset
+    (interactive)
+  (timelines-reload-instruments)
+  (timelines-reset-server))
 
 (defun timelines-show-output ()
   "Show haskell output."
@@ -36,10 +53,6 @@
 	(goto-char (point-max))
 	(save-selected-window
 	  (set-window-point window (point-max)))))))
-
-
-
-(set-window-start (get-buffer-window) 100)
 
 
 (defun timelines-chunk-string (n s)
@@ -114,6 +127,15 @@
   "Timelines keymap.")
 
 ;;(global-set-key (kbd "C-t") nil)
+
+(defun timelines-load-source
+    (interactive)
+  (timelines-send-string (concat ":l " timelines-path-to-src "Context.hs"))
+
+(defun timelines-reload-instruments
+  (interactive)
+  (timelines-send-string (format ":l %s" timelines-path-to-instruments))
+  )
 
 (defun timelines-reset-server ()
   (interactive)
