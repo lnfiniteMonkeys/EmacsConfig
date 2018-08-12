@@ -17,41 +17,23 @@
   (require 'use-package)
   (setq use-package-always-ensure t))
 
-(global-set-key [tab] 'indent-for-tab-command)
-;;unindent?
-	
-(global-set-key (kbd "C-w") 'kill-whole-line)
+;; load the timelines mode
+(require 'timelines "timelines-mode.el")
 
-(org-babel-load-file (expand-file-name "~/.emacs.d/setup.org"))
+;; load the TimeLines setup file
+(org-babel-load-file (expand-file-name "~/.emacs.d/timelines-setup.org"))
 
-(require 'timelines "~/.emacs.d/timelines.el")
-
-(require 'ox-latex)
-(add-to-list (quote org-latex-classes) (quote ("dissertation" "\\documentclass{report}" ("\\chapter{%s}" . "\\chapter*{%s}") ("\\section{%s}" . "\\section*{%s}") ("\\subsection{%s}" . "\\subsection*{%s}") ("\\subsubsection{%s}" . "\\subsubsection*{%s}") ("\\paragraph{%s}" . "\\paragraph*{%s}"))))
-
-
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((emacs-lisp . t)
-   (python . t)
-   (haskell . t)))
-
-
-(setq exec-path (append exec-path '("C:/Users/Carl/AppData/Local/Programs/MiKTeX 2.9/miktex/bin/x64")))
-
-(use-package elpy)
-(elpy-enable)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (intero elpy yasnippet which-key use-package smartparens scroll-restore org-pdfview monokai-theme magit ido-vertical-mode hydra ghc avy))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
+;; load any additional files if they exist
+(let ((qwerty-to-dvorak "qwerty-to-dvorak.el")
+      (additional-settings "additional-settings.el")
+      (local-settings "local-settings.el"))
+  (when (file-exists-p qwerty-to-dvorak)
+   (load-file qwerty-to-dvorak))
+  (when (file-exists-p additional-settings)
+   (load-file additional-settings))
+  (when (file-exists-p local-settings)
+   (load-file local-settings))
  )
+
+(global-set-key [tab] 'indent-for-tab-command)
+

@@ -1,3 +1,9 @@
+;; This mode was adapted from TidalCycles' own Emacs major mode
+;; which offers very similar functionality, namely providing
+;; Haskell syntax highlighting and formatting and communication
+;; with a GHCi interpreter. The original can be found here:
+;; https://github.com/tidalcycles/Tidal/blob/master/tidal.el
+
 (require 'scheme)
 (require 'comint)
 (require 'thingatpt)
@@ -14,14 +20,43 @@
   "*The haskell interpeter to use (default = ghci).")
 
 (defvar timelines-path-to-instruments
-  "~/timelines/Sound/TimeLines/Intsruments.hs"
-  "*The path to the Intstruments source file (default = '~/timelines/Sound/TimeLines/Intsruments.hs')")
+  "~/timelines/Sound/TimeLines/Instruments.hs"
+  "*The path to the Intstruments source file (default = '~/timelines/Sound/TimeLines/Instruments.hs')")
 
 (defvar timelines-path-to-src
   "~/timelines/Sound/TimeLines/"
   "*The path to the source files to be loaded on startup (default = '~/timelines/Sound/TimeLines/')")
 
+;;;;;;;;;;;Interactives
+(defun timelines-load-src ()
+    (interactive)
+  (timelines-send-string (concat ":l " timelines-path-to-src "Context.hs")))
 
+(defun timelines-reload-instruments ()
+  (interactive)
+  (timelines-send-string (concat ":l " timelines-path-to-instruments)))
+
+(defun timelines-reset-server ()
+  (interactive)
+  (timelines-send-string "reset"))
+
+(defun timelines-set-window ()
+  (interactive)
+  (let ((s (read-from-minibuffer "Start: "))
+	(e (read-from-minibuffer "End: ")))
+  (timelines-send-string (concat "window " s " " e))))
+
+(defun timelines-play ()
+  (interactive)
+  (timelines-send-string "sendMessage \"/TimeLines/play\" \"\""))
+
+(defun timelines-loop-on ()
+  (interactive)
+  (timelines-send-string "sendMessage \"/TimeLines/setLoop\" \"1\""))
+
+(defun timelines-loop-off ()
+  (interactive)
+  (timelines-send-string "sendMessage \"/TimeLines/setLoop\" \"0\""))
 
 (defun timelines-start ()
   "Start TimeLines."
@@ -31,15 +66,16 @@
     (apply 'make-comint "timelines" timelines-interpreter nil)
     (delete-other-windows)
     (timelines-show-output))
-  ;;(timelines-send-string ":m Sound.TimeLines.Context")
-  (timelines-send-string ":set prompt \"TimeLines> \"")
+  (timelines-send-string ":set prompt \"TimeLines>> \"")
+  ;;avoid printing the "Sound.TimeLines.Context" module everytime a timeline is written
+  (timelines-send-string ":set prompt-cont \"\"")
   (timelines-load-src)
-  (timelines-reset)
+  ;;(timelines-reset)
   ) 
 
-(defun timelines-reset
+(defun timelines-reset ()
     (interactive)
-  (timelines-reload-instruments)
+  ;;(timelines-reload-instruments)
   (timelines-reset-server))
 
 (defun timelines-show-output ()
@@ -53,7 +89,6 @@
 	(goto-char (point-max))
 	(save-selected-window
 	  (set-window-point window (point-max)))))))
-
 
 (defun timelines-chunk-string (n s)
   "Split a string S into chunks of N characters."
@@ -69,7 +104,6 @@
       (let ((cs (timelines-chunk-string 64 (concat s "\n"))))
         (mapcar (lambda (c) (comint-send-string timelines-buffer c)) cs))
     (error "no TimeLines process ")))
-
 
 (defun timelines-run-line ()
   "Send the current line to the interpreter."
@@ -105,10 +139,7 @@
       (save-mark-and-excursion
        (timelines-send-region))
     (save-excursion
-     (timelines-send-region))
-    )
-  )
-
+     (timelines-send-region))))
 
 (defun timelines-interrupt-haskell ()
   (interactive)
@@ -128,38 +159,19 @@
 
 ;;(global-set-key (kbd "C-t") nil)
 
-(defun timelines-load-source
-    (interactive)
-  (timelines-send-string (concat ":l " timelines-path-to-src "Context.hs"))
-
-(defun timelines-reload-instruments
-  (interactive)
-  (timelines-send-string (format ":l %s" timelines-path-to-instruments))
-  )
-
-(defun timelines-reset-server ()
-  (interactive)
-  (timelines-send-string "reset"))
-
-
-(defun timelines-set-window ()
-  (interactive)
-  (let ((s (read-from-minibuffer "Start: "))
-	(e (read-from-minibuffer "End: ")))
-  (print (list s e))
-  ;;(timeLines-send-string "window 0 1"))
-))
-
-
 (defun timelines-mode-keybindings (map)
   "Haskell Timelines keybindings."
   (define-key map (kbd "C-c C-s") 'timelines-start)
   (define-key map (kbd "C-t C-t") 'timelines-show-output)
-  (define-key map (kbd "C-t C-q") 'timelines-quit-haskell)
+  (define-key map (kbd "C-c C-q") 'timelines-quit-haskell)
   (define-key map (kbd "<C-return>") 'timelines-eval-region)
-  (define-key map (kbd "C-c C-r") 'timelines-reset-server)
+  (define-key map (kbd "C-c C-r") 'timelines-reset)
+  (define-key map (kbd "C-c C-e") 'timelines-reload-instruments)
   (define-key map (kbd "C-c C-w") 'timelines-set-window)
-)
+  (define-key map (kbd "C-c C-j") 'timelines-play)
+  (define-key map (kbd "C-c C-k") 'timelines-loop-on)
+  (define-key map (kbd "C-c C-l") 'timelines-loop-off)
+  )
 
 (defun timelines-turn-on-keybindings ()
   "Haskell Timelines keybindings in the local map."
