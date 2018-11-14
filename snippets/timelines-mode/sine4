@@ -1,0 +1,29 @@
+# -*- mode: snippet -*-
+# name: sine4
+# key: sine4
+# --
+let f = ${1:220}
+    prog = fromList [${2:0}] $ slow 8 $ bar
+    scale = ${3:lydian}
+    chords = chordsFromScale scale prog
+    chrd i = semi $ chords!!i
+    lfo i = ${4:1}
+synth "$5_sine4" $ do
+  "amp"   <>< let
+    in ${6:0}
+  "amp1"  <>< let
+    in ${7:1} * lfo 0
+  "freq1" <>< let
+    in ${8:f * chrd 0}
+  "amp2"  <>< let
+    in ${9:1} * lfo 1
+  "freq2" <>< let
+    in ${10:f * chrd 1}
+  "amp3"  <>< let
+    in ${11:1} * lfo 2 
+  "freq3" <>< let
+    in ${12:f * chrd 2}
+  "amp4"  <>< let
+    in ${13:1} * lfo 3
+  "freq4" <>< let
+    in ${14:f * chrd 3}

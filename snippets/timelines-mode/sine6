@@ -1,0 +1,33 @@
+# -*- mode: snippet -*-
+# name: sine6
+# key: sine6
+# --
+synth "$1_sine6" $ do
+  "amp"   <>< let
+    in ${2:0}
+  "amp1"  <>< let
+    in ${3:0}
+  "freq1" <>< let
+    in ${4:f}
+  "amp2"  <>< let
+    in ${5:0}
+  "freq2" <>< let
+    in ${6:f}
+  "amp3"  <>< let
+    in ${7:0}
+  "freq3" <>< let
+    in ${8:f}
+  "amp4"  <>< let
+    in ${9:0}
+  "freq4" <>< let
+    in ${10:f}
+  "amp5"  <>< let
+    in ${11:0}
+  "freq5" <>< let
+    in ${12:f}
+  "amp6"  <>< let
+    in ${13:0}
+  "freq6" <>< let
+    in ${14:f}
+  "panFreq" <>< let
+    in ${0:0}

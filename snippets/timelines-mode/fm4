@@ -1,0 +1,21 @@
+# -*- mode: snippet -*-
+# name: fm4
+# key: fm4
+# --
+synth "$1_fm4" $ do
+  "amp"    <>< let
+    in ${2:0}
+  "freq1"  <>< let
+    in ${3:f}
+  "freq2"  <>< let
+    in ${4:f}
+  "ratio1" <>< let
+    in ${5:0}
+  "ratio2" <>< let
+    in ${6:0}
+  "index1" <>< let
+    in ${7:0}
+  "index2" <>< let
+    in ${8:0}
+  "pan"    <>< let
+    in ${0:0}

@@ -1,0 +1,21 @@
+# -*- mode: snippet -*-
+# name: sawdfm
+# key: sawdfm
+# --
+synth "$1_sawDFM" $ do
+  "amp"   <>< let
+    in ${2:0}
+  "freq"  <>< let
+    in ${3:f}
+  "dtune" <>< let
+    in ${4:0}
+  "ctf"   <>< let
+    in ${5:1000}
+  "res"   <>< let
+    in ${6:0.5}
+  "gain"  <>< let
+    in ${7:1}
+  "width" <>< let
+    in ${8:0.5}
+  "pan"   <>< let
+    in ${0:0}

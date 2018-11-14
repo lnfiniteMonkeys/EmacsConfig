@@ -19,22 +19,14 @@
   "ghci"
   "*The haskell interpeter to use (default = ghci).")
 
-(defvar timelines-path-to-instruments
-  "~/timelines/Sound/TimeLines/Instruments.hs"
-  "*The path to the Intstruments source file (default = '~/timelines/Sound/TimeLines/Instruments.hs')")
-
 (defvar timelines-path-to-src
-  "~/timelines/Sound/TimeLines/"
-  "*The path to the source files to be loaded on startup (default = '~/timelines/Sound/TimeLines/')")
+  "~/timelines"
+  "*The path to the source files to be loaded on startup (default = '~/timelines')")
 
 ;;;;;;;;;;;Interactives
 (defun timelines-load-src ()
     (interactive)
-  (timelines-send-string (concat ":l " timelines-path-to-src "Context.hs")))
-
-(defun timelines-reload-instruments ()
-  (interactive)
-  (timelines-send-string (concat ":l " timelines-path-to-instruments)))
+    (timelines-send-string ":l Sound.TimeLines.Context"))
 
 (defun timelines-reset-server ()
   (interactive)
@@ -66,6 +58,7 @@
     (apply 'make-comint "timelines" timelines-interpreter nil)
     (delete-other-windows)
     (timelines-show-output))
+  (timelines-send-string (concat ":cd " timelines-path-to-src))
   (timelines-send-string ":set prompt \"TimeLines>> \"")
   ;;avoid printing the "Sound.TimeLines.Context" module everytime a timeline is written
   (timelines-send-string ":set prompt-cont \"\"")
@@ -75,7 +68,6 @@
 
 (defun timelines-reset ()
     (interactive)
-  ;;(timelines-reload-instruments)
   (timelines-reset-server))
 
 (defun timelines-show-output ()
@@ -164,9 +156,9 @@
   (define-key map (kbd "C-c C-s") 'timelines-start)
   (define-key map (kbd "C-t C-t") 'timelines-show-output)
   (define-key map (kbd "C-c C-q") 'timelines-quit-haskell)
+  (define-key map (kbd "C-c C-e") 'timelines-load-src)
   (define-key map (kbd "<C-return>") 'timelines-eval-region)
   (define-key map (kbd "C-c C-r") 'timelines-reset)
-  (define-key map (kbd "C-c C-e") 'timelines-reload-instruments)
   (define-key map (kbd "C-c C-w") 'timelines-set-window)
   (define-key map (kbd "C-c C-j") 'timelines-play)
   (define-key map (kbd "C-c C-k") 'timelines-loop-on)

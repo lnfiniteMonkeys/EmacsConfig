@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: phasors
+# key: phasors
+# --
+let (beat, bar, beatDur, barDur, totalDur) = bpmToPhasors ${1:bpm} ${2:numBeats} ${0:numBars}
+window 0 totalDur
