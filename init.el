@@ -17,6 +17,9 @@
   (require 'use-package)
   (setq use-package-always-ensure t))
 
+(add-to-list 'load-path "c:/Users/Carl/tidal")
+(require 'tidal)
+
 ;; load the TimeLines setup file
 (org-babel-load-file (expand-file-name "~/.emacs.d/timelines-setup.org"))
 

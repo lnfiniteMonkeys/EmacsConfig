@@ -92,6 +92,8 @@
   (add-to-list 'org-structure-template-alist
 	  '("m" "#+begin_src emacs-lisp\n\n#+end_src" "<src lang=\"emacs-lisp\">\n\n</src>"))
 
+  (require 'ox-md) ;; load markdown export backend
+
   (use-package org-ref)
   (use-package helm)
 
@@ -108,6 +110,8 @@
   (define-key org-mode-map (kbd "C-i") nil)
   (define-key org-mode-map (kbd "M-e") nil)
   (define-key org-mode-map (kbd "C-d") nil)
+  (define-key org-mode-map (kbd "C-y") nil)
+
  #+END_SRC
 ** Code
 #+BEGIN_SRC emacs-lisp
@@ -209,3 +213,5 @@
 
   (global-set-key (kbd "C-c e")  'delete-file-and-buffer)
 #+END_SRC
+
+

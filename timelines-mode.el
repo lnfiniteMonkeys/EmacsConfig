@@ -15,14 +15,18 @@
   "*timelines*"
   "*The name of the TimeLines process buffer (default = *timelines*).")
 
-(defvar timelines-interpreter
-  "ghci"
-  "*The haskell interpeter to use (default = ghci).")
 
 (defvar timelines-path-to-src
   "~/timelines"
   "*The path to the source files to be loaded on startup (default = '~/timelines')")
 
+(defvar timelines-interpreter
+  "stack"
+  "*The haskell interpeter to use (default = stack).")
+
+(defvar timelines-interpreter-args
+  "ghci"
+  "*Arguments for the Haskell interpreter (default = ghci).")
 ;;;;;;;;;;;Interactives
 (defun timelines-load-src ()
     (interactive)
@@ -55,16 +59,11 @@
   (interactive)
   (if (comint-check-proc timelines-buffer)
       (error "A TimeLines process is already running")
-    (apply 'make-comint "timelines" timelines-interpreter nil)
+    (let ((default-directory timelines-path-to-src))
+      (make-comint "timelines" timelines-interpreter nil timelines-interpreter-args))
     (delete-other-windows)
-    (timelines-show-output))
-  (timelines-send-string (concat ":cd " timelines-path-to-src))
-  (timelines-send-string ":set prompt \"TimeLines>> \"")
-  ;;avoid printing the "Sound.TimeLines.Context" module everytime a timeline is written
-  (timelines-send-string ":set prompt-cont \"\"")
-  (timelines-load-src)
-  ;;(timelines-reset)
-  ) 
+    (timelines-show-output)
+    (timelines-send-string ":script Boot.tl")))
 
 (defun timelines-reset ()
     (interactive)

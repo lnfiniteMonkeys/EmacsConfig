@@ -1,5 +1,6 @@
 ;;;;;; QWERTY -> DVORAK while keeping all keybindngs the same
 ;; First row
+
 (define-key key-translation-map (kbd "q") (kbd "'"))
 (define-key key-translation-map (kbd "w") (kbd ","))
 (define-key key-translation-map (kbd "e") (kbd "."))
@@ -80,4 +81,3 @@
 
 (define-key key-translation-map (kbd "_") (kbd "{"))
 (define-key key-translation-map (kbd "+") (kbd "}"))
-
