@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: melody
+# key: melody
+# --
+melody ${1:list} ${0:phasor}

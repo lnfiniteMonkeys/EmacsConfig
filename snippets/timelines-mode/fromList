@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: fromList
+# key: fromList
+# --
+fromList [${1:values}] ${0:phasor}

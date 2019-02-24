@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: switch0
+# key: switch0
+# --
+switch0 ${1:start} ${2:end} ${3:phasor} ${0:sig}

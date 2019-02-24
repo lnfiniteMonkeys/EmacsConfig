@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: noise
+# key: noise
+# --
+synth "${1:name}_noise" $ do
+  "amp" <>< let
+    in ${2:0}
+  "pan" <>< let
+    in ${0:0}

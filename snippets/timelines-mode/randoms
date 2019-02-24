@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: randoms
+# key: randoms
+# --
+randoms ${1:num} ${2:offset} ${0:phasor}

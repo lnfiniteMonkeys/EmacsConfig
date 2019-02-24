@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: saw
+# key: saw
+# --
+synth "$1_saw" $ do
+  "amp" <>< let
+    in ${2:0}
+  "freq" <>< let
+    in ${3:f}
+  "width" <>< let
+    in ${5:0}
+  "pan" <>< let
+    in ${0:0.5}

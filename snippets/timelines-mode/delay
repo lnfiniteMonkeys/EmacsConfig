@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: delay
+# key: delay
+# --
+synth "${1:name}_delay" $ do
+  "amp" <>< let
+    in ${2:0}
+  "delayTime" <>< let
+    in ${3:beatDur}
+  "decayTime" <>< let
+    in ${4:beatDur}
+  "pan" <>< let
+    in ${0:0}

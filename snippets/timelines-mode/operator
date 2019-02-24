@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: operator
+# key: operator
+# --
+synth "$1_operator" $ do
+  "amp" <>< let
+    in ${2:0}
+  "freq" <>< let
+    in ${3:f}
+  "amt" <>< let
+    in ${0:0}
