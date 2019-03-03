@@ -63,7 +63,7 @@
       (make-comint "timelines" timelines-interpreter nil timelines-interpreter-args))
     (delete-other-windows)
     (timelines-show-output)
-    (timelines-send-string ":script Boot.tl")))
+    (timelines-send-string ":script Boot.hs")))
 
 (defun timelines-reset ()
     (interactive)
