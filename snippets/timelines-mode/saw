@@ -10,4 +10,4 @@ synth "$1_saw" $ do
   "width" <>< let
     in ${5:0}
   "pan" <>< let
-    in ${0:0.5}
+    in ${0:0}

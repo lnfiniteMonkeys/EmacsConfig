@@ -2,4 +2,4 @@
 # name: fromList
 # key: fromList
 # --
-fromList [${1:values}] ${0:phasor}
+fromList [${1:values}] ${0:index(0-1)}

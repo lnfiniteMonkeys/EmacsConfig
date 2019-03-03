@@ -2,4 +2,4 @@
 # name: envad
 # key: envad
 # --
-envAD ${1:atk} ${2:rel} ${3:crv1} ${4:crv2} $ realTime ${5:bar} ${6:barDur} ${0:mult}
+envAD ${1:atk} ${2:rel} ${3:crv1} ${4:crv2} $ realTime ${5:bar} ${6:barDur} ${0:multiplier}
