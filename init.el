@@ -49,7 +49,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (expand-region helm org-ref intero elpy yasnippet which-key use-package smartparens scroll-restore org-pdfview monokai-theme magit ido-vertical-mode hydra ghc avy))))
+    (rust-mode expand-region helm org-ref intero elpy yasnippet which-key use-package smartparens scroll-restore org-pdfview monokai-theme magit ido-vertical-mode hydra ghc avy))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

@@ -1,3 +1,5 @@
 (use-package magit)
 (use-package pdf-tools)
 (use-package org-pdfview)
+(use-package rust-mode)
+(setq rust-format-on-save t)

@@ -8,6 +8,6 @@ synth "$1_saw" $ do
   "freq" <>< let
     in ${3:f}
   "width" <>< let
-    in ${5:0}
+    in ${5:0.5}
   "pan" <>< let
     in ${0:0}
