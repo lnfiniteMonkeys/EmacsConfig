@@ -189,5 +189,5 @@
 
 (add-to-list 'auto-mode-alist '("\\.tl" . timelines-mode))
 
-(provide 'timelines)
+(provide 'timelines-mode)
 ;;
