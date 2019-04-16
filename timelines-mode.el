@@ -16,7 +16,7 @@
   "*The name of the TimeLines process buffer (default = *timelines*).")
 
 
-(defvar timelines-path-to-src
+(defvar timelines-path
   "~/timelines"
   "*The path to the source files to be loaded on startup (default = '~/timelines')")
 
@@ -59,11 +59,11 @@
   (interactive)
   (if (comint-check-proc timelines-buffer)
       (error "A TimeLines process is already running")
-    (let ((default-directory timelines-path-to-src))
+    (let ((default-directory timelines-path))
       (make-comint "timelines" timelines-interpreter nil timelines-interpreter-args))
     (delete-other-windows)
     (timelines-show-output)
-    (timelines-send-string ":script Boot.hs")))
+    (timelines-send-string ":script BootScript.hs")))
 
 (defun timelines-reset ()
     (interactive)
