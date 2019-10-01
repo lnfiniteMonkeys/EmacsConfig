@@ -1,0 +1,11 @@
+#+TITLE: Emacs mode for the TimeLines live coding language
+* Installation
+Download or ~git-clone~ this repository to a path on your machine and add the
+following lines to your ~.emacs~ or ~.emacs.d/init.el~ files:
+#+BEGIN_SRC elisp
+(add-to-list 'load-path "~/path/to/timelines-mode")
+(require 'timelines-mode)
+(setq timelines-path "~/path/to/timelines/source")
+#+END_SRC
+replacing the correct paths to timelines-mode (this repo) and the timelines
+source (https://github.com/lnfiniteMonkeys/TimeLines).
