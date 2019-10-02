@@ -6,19 +6,20 @@ There are two things here:
    get someone started with Emacs, together with a mini tutorial.
 ** Installation
 *** Emacs Config
-If you are new to Emacs and want to get started quickly, clone this repo using
-~git clone https://github.com/lnfiniteMonkeys/TimeLines-emacs.git ~/.emacs.d~
-(or if you're on Windows use ~git clone
-https://github.com/lnfiniteMonkeys/TimeLines-emacs.git %HOMEPATH%\.emacs.d~
-instead).
-
-Make sure there is no ~.emacs~ file left in your home directory, and if you're
-on Windows make sure that the ~%HOME%~ environment variable correctly points to
-your home. You can set it by running ~setx HOME ^%HOMEDRIVE^%^%HOMEPATH^%~ in a
-command prompt.
+If you are new to Emacs and want to get started quickly, clone this repo by executing
+**** Linux & OS X
+#+BEGIN_SRC
+git clone https://github.com/lnfiniteMonkeys/TimeLines-emacs.git ~/.emacs.d~
+#+END_SRC
+**** Windows
+#+BEGIN_SRC git clone
+setx HOME ^%HOMEDRIVE^%^%HOMEPATH^%
+git clone https://github.com/lnfiniteMonkeys/TimeLines-emacs.git %HOME%\.emacs.d
+#+END_SRC
+If there is a ~.emacs~ file in your home directory then delete it.
 *** timelines-mode
-If you already have an Emacs config and just want to use this mode, clone clone
-this repo somewhere on your machine, for example ~git clone https://github.com/lnfiniteMonkeys/TimeLines-emacs.git
+If you already have an Emacs config and just want to use this mode, clone
+this repo in a directory, for example ~git clone https://github.com/lnfiniteMonkeys/TimeLines-emacs.git
 ~/timelines-emacs~, and add the following lines to your init file, replacing the paths respectively:
 #+BEGIN_SRC elisp
 (load "~/path/to/timelines-mode.el")
