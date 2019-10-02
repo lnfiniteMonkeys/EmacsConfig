@@ -9,7 +9,7 @@ There are two things here:
 If you are new to Emacs and want to get started quickly, clone this repo by executing
 **** Linux & OS X
 #+BEGIN_SRC
-git clone https://github.com/lnfiniteMonkeys/TimeLines-emacs.git ~/.emacs.d~
+git clone https://github.com/lnfiniteMonkeys/TimeLines-emacs.git ~/.emacs.d
 #+END_SRC
 **** Windows
 #+BEGIN_SRC git clone
