@@ -36,10 +36,28 @@
 
 (define-key yas-minor-mode-map (kbd "SPC") yas-maybe-expand)
 
-;;;;;;;;;;;;;; Setup some familiar functionality defaults (e.g. the usual cut/copy/paste bindings)
+;;;;;;;;;;;;;; Setup some more user-friendly functionality and defaults (e.g. the usual cut/copy/paste bindings)
 (cua-mode t)
 (transient-mark-mode 1)
 (setq cua-keep-region-after-copy t)
+
+;; When a key combination has started, after a while
+;; displays all possible keys to complete it
+(use-package which-key
+  :config (which-key-mode))
+
+;; Instal ido for autocompletion
+(use-package ido
+  :config
+  (ido-mode 1)
+  (setq ido-enable-flex-matching nil)
+  (setq ido-create-new-buffer 'always)
+  (setq ido-everywhere t)
+  (ido-mode 1))
+
+(use-package ido-vertical-mode
+  :init
+  (ido-vertical-mode 1))
 
 
 ;;;;;;;;;;;;;; Setup themes and other aesthetic stuff
@@ -76,7 +94,7 @@
 ;; Reload the init file
 (global-set-key (kbd "C-c p")
 		  (lambda() (interactive)
-		    (org-babel-load-file "~/.emacs.d/init.el")))
+		    (load-file "~/.emacs.d/init.el")))
 
 (setq scroll-conservatively 100)
 
@@ -92,20 +110,22 @@
 ;; Go to any line with Alt-g
 (global-set-key "\M-g" 'goto-line)
 
-;; Instal ido for autocompletion
-(use-package ido
-  :config
-  (ido-mode 1)
-  (setq ido-enable-flex-matching nil)
-  (setq ido-create-new-buffer 'always)
-  (setq ido-everywhere t)
-  (ido-mode 1))
-
-(use-package ido-vertical-mode
-  :init
-  (ido-vertical-mode 1))
-
 (setq initial-major-mode 'lisp-interaction-mode)
+
+;; Display a more useful startup text
+(let ((startup-file "~/.emacs.d/mini-tutorial.org"))
+  (when (and (file-exists-p startup-file)
+             (get-buffer "*scratch*"))
+    (with-current-buffer "*scratch*"
+      (erase-buffer)
+      (insert-file-contents startup-file))))
+
+;;;;;;;;;;;;;; Lastly, load a local-config.el file if it exists. This is where you should put your own configuration.
+
+(let ((local-config "~/.emacs.d/local-config.el"))
+  (when (file-exists-p local-config)
+   (load-file local-config)))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

@@ -1,0 +1,5 @@
+#+TITLE: Welcome to TimeLines in Emacs
+
+* Reading key-bindings
+In Emacs-land, ~C~ is the Control (or Command) key and ~M~ is the Alt (or Options) key. ~C-x~ means "Hold Ctrl and press x", ~C-c C-o~ means "Hold Ctrl and press x, then o", and ~M-o a~ means "Hold Alt and press o, then release Alt and press a~.
+* Managing Files
