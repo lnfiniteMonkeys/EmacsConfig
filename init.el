@@ -22,6 +22,9 @@
 ;; Haskell mode provides syntax highlighting and other goodies
 (use-package haskell-mode)
 
+;; Use General for easy key binding definitions
+(use-package general)
+
 ;; Load up timelines-mode, the star of the evening
 (load "~/.emacs.d/timelines-mode.el")
 
@@ -33,12 +36,12 @@
 ;; Snippets = less typing = good
 (use-package yasnippet
   :config 
-  (yas-global-mode 1))
+  (yas-global-mode 1)
+  (define-key yas-minor-mode-map (kbd "<tab>") nil)
+  (define-key yas-minor-mode-map (kbd "TAB") nil)
+  (define-key yas-minor-mode-map (kbd "SPC") yas-maybe-expand))
 
-(define-key yas-minor-mode-map (kbd "<tab>") nil)
-(define-key yas-minor-mode-map (kbd "TAB") nil)
 
-(define-key yas-minor-mode-map (kbd "SPC") yas-maybe-expand)
 
 ;;;;;;;;;;;;;; Setup some more user-friendly functionality and defaults (e.g. the usual cut/copy/paste bindings)
 (cua-mode t)
@@ -68,7 +71,10 @@
 ;; Replaces a selection with any letter pressed
 (delete-selection-mode 1)
 
-(setq scroll-conservatively 100)
+(setq scroll-conservatively 100
+      select-enable-clipboard t
+      show-paren-delay 0
+      show-trailing-whitespace nil)
 
 
 ;;;;;;;;;;;;;; Setup themes and other aesthetic stuff
