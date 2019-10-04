@@ -1,11 +1,27 @@
 #+TITLE: Emacs mode for the TimeLines live coding language
-* Installation
-Download or ~git-clone~ this repository to a path on your machine and add the
-following lines to your ~.emacs~ or ~.emacs.d/init.el~ files:
+There are two things here:
+1. An Emacs major mode for creating and interacting with a live TimeLines
+   session.
+2. (What I consider to be) A set of sensible default settings and packages to
+   get someone started with Emacs, together with a mini tutorial.
+** Installation
+*** Emacs Config
+If you are new to Emacs and want to get started quickly, clone this repo by executing
+**** Linux & OS X
+#+BEGIN_SRC
+git clone https://github.com/lnfiniteMonkeys/TimeLines-emacs.git ~/.emacs.d
+#+END_SRC
+**** Windows
+#+BEGIN_SRC git clone
+setx HOME ^%HOMEDRIVE^%^%HOMEPATH^%
+git clone https://github.com/lnfiniteMonkeys/TimeLines-emacs.git %HOME%\.emacs.d
+#+END_SRC
+If there is a ~.emacs~ file in your home directory then delete it.
+*** timelines-mode
+If you already have an Emacs config and just want to use this mode, clone
+this repo in a directory, for example ~git clone https://github.com/lnfiniteMonkeys/TimeLines-emacs.git
+~/timelines-emacs~, and add the following lines to your init file, replacing the paths respectively:
 #+BEGIN_SRC elisp
-(add-to-list 'load-path "~/path/to/timelines-mode")
-(require 'timelines-mode)
+(load "~/path/to/timelines-mode.el")
 (setq timelines-path "~/path/to/timelines/source")
 #+END_SRC
-replacing the correct paths to timelines-mode (this repo) and the timelines
-source (https://github.com/lnfiniteMonkeys/TimeLines).
