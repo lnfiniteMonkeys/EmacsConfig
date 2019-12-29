@@ -5,8 +5,8 @@ There are two things here:
 2. (What I consider to be) A set of sensible default settings and packages to
    get someone started with Emacs, together with a mini tutorial.
 ** Installation
-*** Emacs Config
-If you are new to Emacs and want to get started quickly, clone this repo by executing
+*** 1. Full Emacs Config
+If you are new to Emacs and want to get started quickly, first make sure that plain ol' emacs is installed on your computer and then clone this repo by executing
 **** Linux & OS X
 #+BEGIN_SRC
 git clone https://github.com/lnfiniteMonkeys/TimeLines-emacs.git ~/.emacs.d
@@ -16,12 +16,17 @@ git clone https://github.com/lnfiniteMonkeys/TimeLines-emacs.git ~/.emacs.d
 setx HOME ^%HOMEDRIVE^%^%HOMEPATH^%
 git clone https://github.com/lnfiniteMonkeys/TimeLines-emacs.git %HOME%\.emacs.d
 #+END_SRC
-If there is a ~.emacs~ file in your home directory then delete it.
-*** timelines-mode
+Then, if there is a ~.emacs~ file in your home directory you should delete it. If not, don't worry.
+
+This will copy this configuration to a folder called ~.emacs.d~ in your home directory, which is where Emacs looks for the configuration file(s) when it starts. The first time you start Emacs it will take a while to download and install all the modes and dependencies, but  that should only happen once and then boot times will be much better.
+
+*** 2. Just the timelines-mode module
 If you already have an Emacs config and just want to use this mode, clone
-this repo in a directory, for example ~git clone https://github.com/lnfiniteMonkeys/TimeLines-emacs.git
-~/timelines-emacs~, and add the following lines to your init file, replacing the paths respectively:
+this repo in a directory (for example ~$HOME/timelines-emacs~) and add the following lines to your init file, replacing the paths with where you cloned this repo and the timelines source repo respectively:
 #+BEGIN_SRC elisp
 (load "~/path/to/timelines-mode.el")
 (setq timelines-path "~/path/to/timelines/source")
 #+END_SRC
+
+** Usage
+Once either of the above steps has been completed, you should be able to use the mode by opening a file that ends in ~.tl~ (*note:* this file should be actually saved on disk, so if you just opened a new file with ~C-x C-f~ then make sure to save it first with this extension). Then you can start a TimeLines session by pressing ~C-c C-s~.
